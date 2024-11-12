@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
+#define all(x) x.begin(), x.end()
 using namespace std;
 
 bool isValidDate(string& s) {
-    #define all(x) x.begin(), x.end()
     s.erase(remove(all(s), ' '), s.end());
-    //kiểm tra ngày có hợp lệ với tháng đó không
     auto valid = [](int day, int month, int year) { 
         if (year < 1 || month < 1 || month > 12) return false;
         int daysInMonth = 31;
@@ -14,13 +13,13 @@ bool isValidDate(string& s) {
     };
 
     //kiểm tra nếu tồn tại kí tự là chữ hoặc kí tự đặc biệt (trừ '/')
-    auto hasSpecialOrAlphabet = [](const string &S) {
+    auto hasSpecialOrAlphabet = [](string &S) {
         for (char c : S) if (!isdigit(c) && !isspace(c) && c != '/') return true;
         return false;
     };
 
     //tách string thành day-month-year và kiểm tra dự liệu
-    auto check = [&](const string& S) -> bool { 
+    auto check = [&](string& S) -> bool { 
         if (count(all(S), '/') != 2 || hasSpecialOrAlphabet(S)) return false;
         vector<string> ret;
         stringstream ss(S);
@@ -36,8 +35,11 @@ bool isValidDate(string& s) {
 }
 
 int main() {
-    string s = "21/ 1   0 /1";
-    if (isValidDate(s)) cout << "YES";
-    else cout << "NO"; 
+
+    string s = "13/12/200005";
+    
+    if (isValidDate(s)) cout << "YES\n";
+    else cout << "NO\n"; 
+    
     return 0;
 }
